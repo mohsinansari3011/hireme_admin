@@ -30,6 +30,12 @@ const items = [{
         login: false
     }, {
         type: style.option,
+        icon: 'user',
+        text: 'Add Users',
+        link: '/adduser',
+        login: false
+    }, {
+        type: style.option,
         icon: 'address-book',
         text: 'Category',
         link: '/categories',

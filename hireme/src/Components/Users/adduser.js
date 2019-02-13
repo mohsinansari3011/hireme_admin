@@ -5,21 +5,21 @@ import FormFeild from './../widgets/FormFeilds/formfeilds'
 import style from './../widgets/FormFeilds/formfeilds.css'
 
 
-const firebase_categories = firebase.database().ref('categories');
+const firebase_users = firebase.database().ref('users');
 
-class Categories extends Component {
+class AddUser extends Component {
     state = {
-        registorCompleted : '',
+        registorCompleted: '',
         registorError: '',
         loading: false,
         formdata: {
-            category : {
+            name: {
                 element: 'input',
                 value: '',
                 config: {
-                    name: 'category_input',
+                    name: 'name_input',
                     type: 'text',
-                    placeholder: 'Enter your category'
+                    placeholder: 'Enter your name'
                 },
                 validation: {
                     required: true,
@@ -83,7 +83,7 @@ class Categories extends Component {
             this.state.loading ?
                 'loading...' :
                 <div>
-                    <button onClick={(event) => this.submitForm(event)} > Add Category</button>
+                    <button onClick={(event) => this.submitForm(event)} > Add User</button>
                 </div>)
     }
 
@@ -103,60 +103,60 @@ class Categories extends Component {
 
     submitForm = (event) => {
         event.preventDefault();
-        
 
-            let dataToSubmit = {};
-            let formIsValid = true;
 
-            for (let key in this.state.formdata) {
-                dataToSubmit[key] = this.state.formdata[key].value;
-            }
-            for (let key in this.state.formdata) {
-                formIsValid = this.state.formdata[key].valid && formIsValid
-            }
+        let dataToSubmit = {};
+        let formIsValid = true;
 
-            if (formIsValid) {
-                this.setState({
-                    loading: true,
-                    registorError: ''
-                })
-                
-                firebase_categories.orderByChild("id")
-                    .limitToLast(1).once('value')
-                    .then((snapshot) => {
+        for (let key in this.state.formdata) {
+            dataToSubmit[key] = this.state.formdata[key].value;
+        }
+        for (let key in this.state.formdata) {
+            formIsValid = this.state.formdata[key].valid && formIsValid
+        }
 
-                        let cateId = null;
-                        snapshot.forEach(childsnapshot => {
-                            cateId = childsnapshot.val().id;
-                        })
+        if (formIsValid) {
+            this.setState({
+                loading: true,
+                registorError: ''
+            })
 
-                        //console.log(this.state.formdata.category.value);
-                        dataToSubmit['id'] = cateId + 1;
-                        dataToSubmit['date'] = firebase.database.ServerValue.TIMESTAMP;
-                        
-                        firebase_categories.push(dataToSubmit)
-                            .then(() => {
-                                this.setState({
-                                    loading: false,
-                                    registorCompleted : 'Category Inserted Successfully',
-                                    
-                                })
-                                
-                            }).catch(error => {
-                                this.setState({
-                                    loading: false,
-                                    registorError: error.message
-                                })
-                            })
+            firebase_users.orderByChild("id")
+                .limitToLast(1).once('value')
+                .then((snapshot) => {
 
+                    let cateId = null;
+                    snapshot.forEach(childsnapshot => {
+                        cateId = childsnapshot.val().id;
                     })
 
-                    
-                
-                 
-                //console.log(dataToSubmit);
-            }
-        
+                    //console.log(this.state.formdata.category.value);
+                    dataToSubmit['id'] = cateId + 1;
+                    dataToSubmit['date'] = firebase.database.ServerValue.TIMESTAMP;
+
+                    firebase_users.push(dataToSubmit)
+                        .then(() => {
+                            this.setState({
+                                loading: false,
+                                registorCompleted: 'User Inserted Successfully',
+
+                            })
+
+                        }).catch(error => {
+                            this.setState({
+                                loading: false,
+                                registorError: error.message
+                            })
+                        })
+
+                })
+
+
+
+
+            //console.log(dataToSubmit);
+        }
+
 
     }
 
@@ -164,8 +164,8 @@ class Categories extends Component {
     render() {
         return (
             <div className={style.logContainer}>
-                <h2>Add New Category</h2>
-                 <FormFeild id={'category'} formdata={this.state.formdata.category}
+                <h2>Add New User For test </h2>
+                <FormFeild id={'name'} formdata={this.state.formdata.name}
                     change={(element) => this.updateForm(element)} />
                 {this.submitButton()}
                 {this.showCompleted()}
@@ -176,4 +176,4 @@ class Categories extends Component {
     }
 }
 
-export default Categories;
+export default AddUser;
