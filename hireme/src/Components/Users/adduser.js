@@ -125,14 +125,21 @@ class AddUser extends Component {
                 .limitToLast(1).once('value')
                 .then((snapshot) => {
 
-                    let cateId = null;
+                    let userId = null;
                     snapshot.forEach(childsnapshot => {
-                        cateId = childsnapshot.val().id;
+                        userId = childsnapshot.val().id;
                     })
 
                     //console.log(this.state.formdata.category.value);
-                    dataToSubmit['id'] = cateId + 1;
+                    dataToSubmit['id'] = userId + 1;
                     dataToSubmit['date'] = firebase.database.ServerValue.TIMESTAMP;
+                    dataToSubmit['isdelete'] = 0;
+                    dataToSubmit['isblock'] = 0;
+                    dataToSubmit['location'] = {cord : {lat:'0.004044',long:'0.0004'}};
+                    dataToSubmit['image'] = '';
+                    dataToSubmit['phone'] = '0303-6660032';
+                    dataToSubmit['category'] = 'plumber';
+
 
                     firebase_users.push(dataToSubmit)
                         .then(() => {
