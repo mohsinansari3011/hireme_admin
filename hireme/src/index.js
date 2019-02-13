@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 
 import * as serviceWorker from './serviceWorker';
 
+import Routes from './routes'
+import { BrowserRouter} from 'react-router-dom'
 
 const App = () =>{
 
-    return (<div>App </div>)
+    return ( <BrowserRouter>
+                <Routes />
+            </BrowserRouter>)
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
