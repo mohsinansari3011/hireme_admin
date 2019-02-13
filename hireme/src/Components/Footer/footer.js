@@ -14,7 +14,7 @@ const Footer = () => {
             </Link>
 
             <div className={style.right}>
-                @NBA {CURRENT_YEAR} All Rights reserved.
+                @HIRE_ME {CURRENT_YEAR} All Rights reserved.
         </div>
         </div>
     )

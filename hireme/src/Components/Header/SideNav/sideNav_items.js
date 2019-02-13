@@ -18,28 +18,27 @@ const items = [{
     login:''
 }, {
     type: style.option,
-    icon: 'file-text-o',
-    text: 'News',
-    link: '/news',
-    login: ''
-    
-}, {
-    type: style.option,
-    icon: 'play',
-    text: 'Videos',
-    link: '/videos',
-    login: ''
-}, {
-    type: style.option,
     icon: 'sign-in',
     text: 'Dashboard',
     link: '/dashboard',
     login: false
-}, {
+    }, {
+        type: style.option,
+        icon: 'user',
+        text: 'Users',
+        link: '/users',
+        login: false
+    }, {
+        type: style.option,
+        icon: 'address-book',
+        text: 'Category',
+        link: '/categories',
+        login: false
+    }, {
     type: style.option,
     icon: 'sign-in',
-    text: 'Sign in',
-    link: '/sign-in',
+    text: 'Login',
+    link: '/login',
     login: true
 }, {
     type: style.option,

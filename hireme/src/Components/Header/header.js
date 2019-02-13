@@ -17,7 +17,7 @@ const Header = (props) => {
     )
 
     const logo = () => (
-        <Link to="/">
+        <Link to="/" className={style.logo}>
             <img alt="nba logo" src="/images/nba_logo.png"/>
         </Link>
     )

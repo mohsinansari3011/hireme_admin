@@ -134,7 +134,6 @@ class Login extends Component {
                     loading: true,
                     registorError: ''
                 })
-
                 if (type) {
                     firebase.auth().signInWithEmailAndPassword(dataToSubmit.email, dataToSubmit.password)
                         .then(() => {
