@@ -16,6 +16,20 @@ firebase.initializeApp(config);
 const firedb = firebase.database();
 
 
+const firebaselooper = (snapshot) => {
+    const data = [];
+    snapshot.forEach((childSnapshot) => {
+        data.push({
+            ...childSnapshot.val(),
+            id: childSnapshot.key
+        })
+    });
+
+    return data;
+}
+
+
+
 export {
-    firebase, firedb
+    firebase, firedb, firebaselooper
 }

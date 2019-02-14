@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { firebase } from '../../firebase'
+import { firebase , firedb } from '../../firebase'
 
 import FormFeild from './../widgets/FormFeilds/formfeilds'
 import style from './../widgets/FormFeilds/formfeilds.css'
 
 
-const firebase_users = firebase.database().ref('users');
+const firebase_users = firedb.ref('users');
+const firebase_categories = firedb.ref('categories');
+
 
 class AddUser extends Component {
     state = {
@@ -28,6 +30,20 @@ class AddUser extends Component {
                 valid: false,
                 touched: false,
                 validationMessage: ''
+            }, category: {
+                element: 'select',
+                value: '',
+                config: {
+                    name: 'category_input',
+                    options: []
+                },
+                validation: {
+                    required: true,
+                },
+                valid: false,
+                touched: false,
+                validationMessage: ''
+
             }
         }
 
@@ -133,12 +149,12 @@ class AddUser extends Component {
                     //console.log(this.state.formdata.category.value);
                     dataToSubmit['id'] = userId + 1;
                     dataToSubmit['date'] = firebase.database.ServerValue.TIMESTAMP;
-                    dataToSubmit['isdelete'] = 0;
-                    dataToSubmit['isblock'] = 0;
+                    dataToSubmit['isdelete'] = false;
+                    dataToSubmit['isblock'] = false;
                     dataToSubmit['location'] = {cord : {lat:'0.004044',long:'0.0004'}};
                     dataToSubmit['image'] = '';
                     dataToSubmit['phone'] = '0303-6660032';
-                    dataToSubmit['category'] = 'plumber';
+                   // dataToSubmit['category'] = 'plumber';
 
 
                     firebase_users.push(dataToSubmit)
@@ -168,12 +184,44 @@ class AddUser extends Component {
     }
 
 
+    componentDidMount() {
+        this.loadCategories();
+    }
+
+
+    loadCategories = () => {
+        firebase_categories.once('value')
+            .then((snapshot) => {
+                let category = [];
+                snapshot.forEach((childsnapshot) => {
+                    category.push({
+                        id: childsnapshot.val().id,
+                        name: childsnapshot.val().category
+                    })
+                })
+
+                const newFormdata = { ...this.state.formdata };
+                const newElement = { ...newFormdata['category'] };
+                newElement.config.options = category;
+                newFormdata['category'] = newElement;
+
+                this.setState({
+                    formdata: newFormdata
+                })
+
+            })
+    }
+
     render() {
         return (
             <div className={style.logContainer}>
                 <h2>Add New User For test </h2>
                 <FormFeild id={'name'} formdata={this.state.formdata.name}
                     change={(element) => this.updateForm(element)} />
+
+                <FormFeild id={'category'} formdata={this.state.formdata.category}
+                    change={(element) => this.updateForm(element)} />
+
                 {this.submitButton()}
                 {this.showCompleted()}
                 {this.showError()}

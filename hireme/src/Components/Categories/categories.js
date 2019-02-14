@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { firebase } from '../../firebase'
+import { firebase , firedb } from '../../firebase'
 
 import FormFeild from './../widgets/FormFeilds/formfeilds'
 import style from './../widgets/FormFeilds/formfeilds.css'
 
 
-const firebase_categories = firebase.database().ref('categories');
+const firebase_categories = firedb.ref('categories');
 
 class Categories extends Component {
     state = {
@@ -133,7 +133,7 @@ class Categories extends Component {
                         //console.log(this.state.formdata.category.value);
                         dataToSubmit['id'] = cateId + 1;
                         dataToSubmit['date'] = firebase.database.ServerValue.TIMESTAMP;
-                        
+
                         firebase_categories.push(dataToSubmit)
                             .then(() => {
                                 this.setState({
