@@ -92,6 +92,7 @@ class UsersList extends Component {
     renderusers = () =>{
 
         const { items } = this.state;
+        console.log(items);
         let UserTemplate = null;
         
         UserTemplate = items.map((item, i) => {
@@ -111,10 +112,20 @@ class UsersList extends Component {
                                     <img src={item.image} alt={item.name} width="600" height="400"/>
                                 </a>
                                 <div className={style.desc}>{item.name}</div>
+                             
                             </div>
 
+                        <div>
 
-
+                                <div className={style.block}>
+                                    <h5>Block Status</h5>
+                                    {item.isblock ? 'Blocked' : 'UnBlocked'}
+                                </div>
+                                <div className={style.delete}>
+                                    <h5>Delete Status</h5>
+                                    {item.isdelete ? 'Deleted' : 'NotDeleted'}</div>
+                                    
+                        </div>
 
                             
                         </div>
