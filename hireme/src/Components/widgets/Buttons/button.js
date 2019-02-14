@@ -22,6 +22,13 @@ const buttons = (props) => {
                </Link>
             );
            break;
+      case ('button'):
+         tempelate = (
+            <div className={style.blue_btn} onClick={props.toggleBlock}>
+               {props.cta}
+            </div>
+         );
+         break;
        default:
         tempelate = null;
            break;

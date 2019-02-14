@@ -88,7 +88,23 @@ class UsersList extends Component {
     }
 
 
+    toggleBlock = (feild='', value='', uid='') => {
 
+        if (feild === 'block') {
+            firebase.database().ref('users/' + uid).update({
+                isblock: !value
+            });
+        }
+        if (feild === 'delete') {
+            firebase.database().ref('users/' + uid).update({
+                isdelete: !value
+            });
+        }
+
+        this.request(this.state.start, this.state.end);
+        console.log(feild, value, uid);
+
+    }
     renderusers = () =>{
 
         const { items } = this.state;
@@ -117,14 +133,18 @@ class UsersList extends Component {
 
                         <div>
 
-                                <div className={style.block}>
+                                <Button type="button" toggleBlock={() => this.toggleBlock('block', item.isblock, item.id)} cta="Block User" />
+                                <Button type="button" toggleBlock={() => this.toggleBlock('delete', item.isdelete, item.id)} cta="Delete User" />
+
+                                {/* <div className={style.block}>
                                     <h5>Block Status</h5>
-                                    {item.isblock ? 'Blocked' : 'UnBlocked'}
+                                    <div> <span >{item.isblock ? 'Blocked' : 'UnBlocked'} <button onClick={this.toggleBlock('block', item.isblock, item.id)}>X</button> </span></div> 
                                 </div>
                                 <div className={style.delete}>
                                     <h5>Delete Status</h5>
-                                    {item.isdelete ? 'Deleted' : 'NotDeleted'}</div>
-                                    
+                                    <div> <span>{item.isdelete ? 'Deleted' : 'NotDeleted'}  <button onClick={this.toggleBlock('delete', item.isdelete, item.id)}>X</button> </span></div>  
+                                </div> */}
+
                         </div>
 
                             
@@ -143,6 +163,9 @@ class UsersList extends Component {
 
     }
 
+
+
+   
 
     render() {
 
