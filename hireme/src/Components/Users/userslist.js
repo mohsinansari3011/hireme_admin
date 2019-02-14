@@ -101,16 +101,15 @@ class UsersList extends Component {
             });
         }
 
-        this.request(this.state.start, this.state.end);
-        console.log(feild, value, uid);
+        //this.request(this.state.start, this.state.end);
+        //console.log(feild, value, uid);
 
     }
     renderusers = () =>{
 
         const { items } = this.state;
-        console.log(items);
+        //console.log(items);
         let UserTemplate = null;
-        
         UserTemplate = items.map((item, i) => {
                 return (
                     <CSSTransition classNames={
@@ -132,9 +131,11 @@ class UsersList extends Component {
                             </div>
 
                         <div>
+                                {item.isblock ? <Button type="button" toggleBlock={() => this.toggleBlock('block', item.isblock, item.id)} cta="Unblock" /> : <Button type="button" toggleBlock={() => this.toggleBlock('block', item.isblock, item.id)} cta="Block" />}
+                                {item.isdelete ? <Button type="button" toggleBlock={() => this.toggleBlock('delete', item.isdelete, item.id)} cta="Restore" /> : <Button type="button" toggleBlock={() => this.toggleBlock('delete', item.isdelete, item.id)} cta="Delete" />}
 
-                                <Button type="button" toggleBlock={() => this.toggleBlock('block', item.isblock, item.id)} cta="Block User" />
-                                <Button type="button" toggleBlock={() => this.toggleBlock('delete', item.isdelete, item.id)} cta="Delete User" />
+                                
+                                
 
                                 {/* <div className={style.block}>
                                     <h5>Block Status</h5>
