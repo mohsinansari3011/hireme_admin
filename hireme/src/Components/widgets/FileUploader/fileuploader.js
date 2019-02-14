@@ -29,14 +29,14 @@ handleUploadError = (error) => {
 
 
     handleUploadSuccess = (filename) =>{
-        console.log(filename)
+        //console.log(filename)
         this.setState({
             name:filename,
             progress:100,
             isUploading:false
         })
 
-        firebase.storage().ref('images')
+        firebase.storage().ref('userimages')
         .child(filename).getDownloadURL()
         .then( url => {
             this.setState({
@@ -69,7 +69,7 @@ handleUploadError = (error) => {
 
                 />
 
-                { this.state.isUploading ? <p>progress {this.state.progress} </p> : null}
+                { this.state.isUploading ? <p>uploading {this.state.progress} % </p> : null}
                 { this.state.fileURL ? <img alt="" style={{width:'150px', height:'150px'}} src={this.state.fileURL}/> :null}
             </div>
         );
