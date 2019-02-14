@@ -52,12 +52,27 @@ class UsersList extends Component {
 
     }
 
+    loadMore = () => {
+
+        //console.log("end", this.state.end);
+        // console.log("amount", this.state.amount);
+        let end = this.state.end + this.state.amount;
+        this.request(this.state.end + 1, end);
+    }
+
     render() {
 
-        console.log(this.state.items);
+        const { items }  = this.state;
+        console.log(items);
         return (
             <div>
-                
+                {items.map( (item,i) =>{
+                    return(
+                        <div>
+                            {item.name}
+                        </div>
+                    )
+                })}
             </div>
         );
     }

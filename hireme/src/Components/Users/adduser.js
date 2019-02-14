@@ -3,7 +3,7 @@ import { firebase , firedb } from '../../firebase'
 
 import FormFeild from './../widgets/FormFeilds/formfeilds'
 import style from './../widgets/FormFeilds/formfeilds.css'
-
+import Uploader from '../widgets/FileUploader/fileuploader'
 
 const firebase_users = firedb.ref('users');
 const firebase_categories = firedb.ref('categories');
@@ -44,6 +44,13 @@ class AddUser extends Component {
                 touched: false,
                 validationMessage: ''
 
+            }, image: {
+                element: 'image',
+                value: '',
+                valid: true,
+                validation: {
+                    required: true,
+                }
             }
         }
 
@@ -51,14 +58,18 @@ class AddUser extends Component {
 
 
 
-    updateForm = (element) => {
+    updateForm = (element, content = '') => {
         const newFormdata = {
             ...this.state.formdata
         }
         const newElement = {
             ...newFormdata[element.id]
         }
-        newElement.value = element.event.target.value;
+        if (content === '') {
+            newElement.value = element.event.target.value;
+        } else {
+            newElement.value = content;
+        }
 
         if (element.blur) {
             let validData = this.validate(newElement);
@@ -89,6 +100,7 @@ class AddUser extends Component {
             error = !valid ? [valid, message] : error;
         }
 
+       
         return error;
     }
 
@@ -152,9 +164,7 @@ class AddUser extends Component {
                     dataToSubmit['isdelete'] = false;
                     dataToSubmit['isblock'] = false;
                     dataToSubmit['location'] = {cord : {lat:'0.004044',long:'0.0004'}};
-                    dataToSubmit['image'] = '';
                     dataToSubmit['phone'] = '0303-6660032';
-                   // dataToSubmit['category'] = 'plumber';
 
 
                     firebase_users.push(dataToSubmit)
@@ -212,15 +222,28 @@ class AddUser extends Component {
             })
     }
 
+    storeFilename = (filename) => {
+        this.updateForm({ id: 'image' }, filename)
+    }
+
     render() {
         return (
             <div className={style.logContainer}>
                 <h2>Add New User For test </h2>
+
+                
+
+                <h3>User Name</h3>
                 <FormFeild id={'name'} formdata={this.state.formdata.name}
                     change={(element) => this.updateForm(element)} />
 
+
+                <h3>Category</h3>
                 <FormFeild id={'category'} formdata={this.state.formdata.category}
                     change={(element) => this.updateForm(element)} />
+
+                <h3>Select Image</h3>
+                <Uploader filename={(filename) => this.storeFilename(filename)} />
 
                 {this.submitButton()}
                 {this.showCompleted()}

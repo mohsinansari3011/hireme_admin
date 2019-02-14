@@ -46,6 +46,7 @@
     "react-chartkick": "^0.3.0",
     "react-dev-utils": "^7.0.3",
     "react-dom": "^16.8.1",
+    "react-firebase-file-uploader": "^2.4.2",
     "react-fontawesome": "^1.6.1",
     "react-native-svg-charts": "^5.2.0",
     "react-pie": "0.0.3",
