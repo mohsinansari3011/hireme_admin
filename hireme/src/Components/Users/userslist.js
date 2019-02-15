@@ -91,12 +91,12 @@ class UsersList extends Component {
     toggleBlock = (feild='', value='', uid='') => {
 
         if (feild === 'block') {
-            firebase.database().ref('users/' + uid).update({
+            firedb.ref('users/' + uid).update({
                 isblock: !value
             });
         }
         if (feild === 'delete') {
-            firebase.database().ref('users/' + uid).update({
+            firedb.ref('users/' + uid).update({
                 isdelete: !value
             });
         }
