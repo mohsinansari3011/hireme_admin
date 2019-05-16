@@ -59,14 +59,14 @@ class UsersList extends Component {
                     })
                 })
 
-                Promise.all(request).then(() => {
-                    //console.log('End',users);
-                    this.setState({
-                        items: [...this.state.items, ...users],
-                        start,
-                        end
-                    })
-                })
+                // Promise.all(request).then(() => {
+                //     //console.log('End',users);
+                //     this.setState({
+                //         items: [...this.state.items, ...users],
+                //         start,
+                //         end
+                //     })
+                // })
 
                 
 
